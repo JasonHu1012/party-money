@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <form action="/{{user}}/people" method="post">
+      <label>name<input type="textbox" name="name" required></label>
+      <button type="submit" name="add" value="person">add person</button>
+    </form>
+    {% if people != undefined and people|length > 0 %}
+    <form action="/{{user}}/events" method="post" onsubmit="return add_event();">
+      <label>event name<input type="textbox" name="name"></label>
+      <br>
+      <div style='display: inline-block;'>
+      {% for person in people %}
+        <label><input type="radio" name="giver" value="{{person}}">{{person}}</label><br>
+      {% endfor %}
+      </div>
+      pays
+      <label><input type="number" name="money" required id="money"></label>
+      for
+      <div style='display: inline-block;'>
+        {% for person in people %}
+        <label><input type="checkbox" name="{{person}}" id="receiver{{loop.index0}}">{{person}}</label><br>
+        {% endfor %}
+      </div>
+      <button type="submit" name="add" value="event">add event</button>
+    </form>
+    {% endif %}
+    {% if debts != undefined and debts|length > 0 %}
+    <p>debts</p>
+    <form action="/{{user}}/debts" method="post">
+      <ul>
+        {% for debt in debts %}
+        <li>
+          {{debt.giver}} should give ${{debt.money}} to {{debt.receiver}}
+          <button name="delete" value="{{loop.index0}}" type="submit">delete</button>
+        </li>
+        {% endfor %}
+      </ul>
+    </form>
+    {% endif %}
+    {% if events != undefined and events|length > 0 %}
+    <p>events</p>
+    <form action="/{{user}}/events" method="post">
+      <ul>
+        {% for event in events %}
+        <li>
+          {{event.name}}: {{event.giver}} pays {{event.money}} for {{event.receivers}}
+          <button name="delete" value="{{loop.index0}}" type="submit">delete</button>
+        </li>
+        {% endfor %}
+      </ul>
+    </form>
+    {% endif %}
+    {% if people != undefined and people|length > 0 %}
+    <p>people</p>
+    <form action="/{{user}}/people" method="post">
+      <ul>
+        {% for person in people %}
+        <li>
+          {{person}}
+          <button name="delete" value="{{loop.index0}}" type="submit">delete</button>
+        </li>
+        {% endfor %}
+      </ul>
+    </form>
+    {% endif %}
+    <script src="{{url_for('static', filename='index.js')}}"></script>
+  </body>
+</html>
