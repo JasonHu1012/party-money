@@ -39,7 +39,7 @@
     </form>
     {% endif %}
     {% if events != undefined and events|length > 0 %}
-    <p>events</p>
+    <p>events history</p>
     <form action="/{{user}}/events" method="post">
       <ul>
         {% for event in events %}
