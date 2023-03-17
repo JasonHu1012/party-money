@@ -71,8 +71,8 @@ def debts_func(user):
         debts = get_debts(data.people, data.debt_graph)
         debt = debts[index]
 
-        giver_i = data.people.index(debt['giver'])
-        receiver_i = data.people.index(debt['receiver'])
+        giver_i = data.people.index(debt.giver)
+        receiver_i = data.people.index(debt.receiver)
         data.debt_graph[giver_i][receiver_i] = 0
 
     else:
